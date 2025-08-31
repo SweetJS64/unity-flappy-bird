@@ -16,7 +16,7 @@ namespace Game.Presentation
 
         [Header("Tilt")]
         [SerializeField] private float TiltUp = 35f;
-        [SerializeField] private float TiltDown = -90f;
+        [SerializeField] private float TiltDown = -40f;
         [SerializeField] private float TiltLerp = 8f;
 
         private Rigidbody2D _rb;
@@ -42,19 +42,14 @@ namespace Game.Presentation
                 }
                 Flap();
             }
-
-            var t = Mathf.InverseLerp(MaxFallSpeed, JumpSpeed, _rb.linearVelocity.y);
-            var targetAngle = Mathf.Lerp(TiltDown, TiltUp, t);
-            var rot = Quaternion.Euler(0, 0, targetAngle);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, TiltLerp * Time.deltaTime);
+            Tilt();
         }
 
         private void FixedUpdate()
         {
             if (!_alive) return;
-            
-            if (_rb.linearVelocity.y < MaxFallSpeed)
-                _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, MaxFallSpeed);
+
+            ClampFallSpeed();
         }
 
         private void Flap()
@@ -62,6 +57,20 @@ namespace Game.Presentation
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, JumpSpeed);
         }
 
+        private void Tilt()
+        {
+            var t = Mathf.InverseLerp(MaxFallSpeed, JumpSpeed, _rb.linearVelocity.y);
+            var targetAngle = Mathf.Lerp(TiltDown, TiltUp, t);
+            var rot = Quaternion.Euler(0, 0, targetAngle);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rot, TiltLerp * Time.deltaTime);
+        }
+
+        private void ClampFallSpeed()
+        {
+            if (_rb.linearVelocity.y < MaxFallSpeed)
+                _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, MaxFallSpeed);
+        }
+        
         public void Die()
         {
             _alive = false;
