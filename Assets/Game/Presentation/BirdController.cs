@@ -70,12 +70,5 @@ namespace Game.Presentation
             if (_rb.linearVelocity.y < MaxFallSpeed)
                 _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, MaxFallSpeed);
         }
-        
-        public void Die()
-        {
-            _alive = false;
-            _rb.linearVelocity = Vector2.zero;
-            _rb.gravityScale = DefaultGravity;
-        }
     }
 }

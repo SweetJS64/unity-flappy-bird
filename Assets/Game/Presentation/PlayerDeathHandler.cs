@@ -1,11 +1,12 @@
-using System;
 using UnityEngine;
+using Zenject;
+using Game.Core.Signals;
 
 namespace Game.Presentation
 {
     public class PlayerDeathHandler : MonoBehaviour
     {
-        public event Action Died;
+        [Inject] private SignalBus _signalBus;
 
         [SerializeField] private LayerMask ObstacleMask;
         [SerializeField] private LayerMask DeathZoneMask;
@@ -32,6 +33,8 @@ namespace Game.Presentation
             _isDead = true;
             var ctrl = GetComponent<PlayerController>();
             ctrl.enabled = false;
+            
+            _signalBus.Fire<PlayerDiedSignal>();
         }
     }
 }

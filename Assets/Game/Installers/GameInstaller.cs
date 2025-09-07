@@ -1,5 +1,6 @@
 using Zenject;
 using Game.Core;
+using Game.Core.Signals;
 using Game.Infrastructure;
 using Game.Presentation;
 using UnityEngine;
@@ -26,8 +27,8 @@ namespace Game.Installers
                 .FromComponentInNewPrefab(PipePrefab)
                 .UnderTransform(PipesRoot);
             
-        
-            
+            SignalBusInstaller.Install(Container);
+            Container.DeclareSignal<PlayerDiedSignal>();
         }
     }
 }
