@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.Core.Signals;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Game.Presentation
     public class PlayerController : MonoBehaviour
     {
         [Inject] private IInputService _input;
+        [Inject] private SignalBus _bus;
 
         [Header("Flight")]
         [SerializeField] private float JumpSpeed = 5.5f;
@@ -36,6 +38,7 @@ namespace Game.Presentation
                 {
                     _started = true;
                     _rb.gravityScale = DefaultGravity;
+                    _bus.Fire<GameStartedSignal>();
                 }
                 Flap();
             }

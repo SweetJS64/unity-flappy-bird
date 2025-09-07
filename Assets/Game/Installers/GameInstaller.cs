@@ -29,6 +29,7 @@ namespace Game.Installers
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<PlayerDiedSignal>();
             Container.DeclareSignal<PlayerScoredSignal>();
+            Container.DeclareSignal<GameStartedSignal>();
         }
     }
 }
