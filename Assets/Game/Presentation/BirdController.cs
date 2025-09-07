@@ -5,7 +5,7 @@ using Zenject;
 namespace Game.Presentation
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class BirdController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [Inject] private IInputService _input;
 

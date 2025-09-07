@@ -7,7 +7,7 @@ namespace Game.Presentation
     {
         private IMemoryPool _pool;
         
-        public void Init(Vector2 startPos, IMemoryPool pool)
+        private void Init(Vector2 startPos, IMemoryPool pool)
         {
             _pool = pool;
             transform.position = startPos;

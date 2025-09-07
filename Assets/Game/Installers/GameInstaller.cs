@@ -14,22 +14,20 @@ namespace Game.Installers
         
         public override void InstallBindings()
         {
+#if UNITY_EDITOR || UNITY_STANDALONE
             Container.Bind<IInputService>().To<DesktopInputService>().AsSingle();
-            
-            // #if UNITY_EDITOR || UNITY_STANDALONE
-            //     Container.Bind<IInputService>().To<DesktopInputService>().AsSingle();
-            // #else
-            //     Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
-            // #endif
-
-            Container.Bind<BirdController>().FromComponentInHierarchy().AsSingle();
-            
-            
+#else
+            Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
+#endif
+            //Container.Bind<IInputService>().To<DesktopInputService>().AsSingle();
+            Container.Bind<PlayerController>().FromComponentInHierarchy().AsSingle();
             Container.BindMemoryPool<PipeObstacle, PipeObstacle.Pool>()
                 .WithInitialSize(5)
                 .FromComponentInNewPrefab(PipePrefab)
                 .UnderTransform(PipesRoot);
-
+            
+        
+            
         }
     }
 }

@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8888456124256052573}
   - component: {fileID: 6724316367351056519}
   - component: {fileID: 6602401630584516841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomPipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 7941733103502165632}
   - component: {fileID: 8576465709258888457}
   - component: {fileID: 575771861433162252}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopPipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
