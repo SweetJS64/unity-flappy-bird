@@ -21,7 +21,6 @@ namespace Game.Presentation
 
         private Rigidbody2D _rb;
         private bool _started;
-        private bool _alive = true;
 
         private void Awake()
         {
@@ -31,8 +30,6 @@ namespace Game.Presentation
 
         private void Update()
         {
-            if (!_alive) return;
-
             if (_input.IsJumpPressed())
             {
                 if (!_started)
@@ -47,8 +44,6 @@ namespace Game.Presentation
 
         private void FixedUpdate()
         {
-            if (!_alive) return;
-
             ClampFallSpeed();
         }
 

@@ -20,7 +20,6 @@ namespace Game.Installers
 #else
             Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
 #endif
-            //Container.Bind<IInputService>().To<DesktopInputService>().AsSingle();
             Container.Bind<PlayerController>().FromComponentInHierarchy().AsSingle();
             Container.BindMemoryPool<PipeObstacle, PipeObstacle.Pool>()
                 .WithInitialSize(5)
@@ -29,6 +28,7 @@ namespace Game.Installers
             
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<PlayerDiedSignal>();
+            Container.DeclareSignal<PlayerScoredSignal>();
         }
     }
 }
