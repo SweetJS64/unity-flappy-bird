@@ -1114,9 +1114,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPoint: {fileID: 2030920015}
-  MinY: -1.5
-  MaxY: 1.5
-  Interval: 1.4
+  MinY: -2
+  MaxY: 2
+  Interval: 2
 --- !u!4 &2030920015
 Transform:
   m_ObjectHideFlags: 0
@@ -1315,6 +1315,18 @@ PrefabInstance:
     - target: {fileID: 3429083261743567813, guid: 8315ede524039bc4ba7bc96ef900bcf2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205780058523567802, guid: 8315ede524039bc4ba7bc96ef900bcf2, type: 3}
+      propertyPath: JumpSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205780058523567802, guid: 8315ede524039bc4ba7bc96ef900bcf2, type: 3}
+      propertyPath: MaxFallSpeed
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205780058523567802, guid: 8315ede524039bc4ba7bc96ef900bcf2, type: 3}
+      propertyPath: DefaultGravity
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7223941512757941945, guid: 8315ede524039bc4ba7bc96ef900bcf2, type: 3}
       propertyPath: m_Name

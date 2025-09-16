@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using Game.Common;
 using Game.Core.Signals;
 
 namespace Game.Presentation
@@ -17,7 +18,7 @@ namespace Game.Presentation
         {
             if (_isDead) return;
 
-            if (other.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            if (other.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Obstacle))
                 Die();
         }
 
@@ -25,7 +26,7 @@ namespace Game.Presentation
         {
             if (_isDead) return;
             
-            if (other.gameObject.layer == LayerMask.NameToLayer("DeathZone"))
+            if (other.gameObject.layer == LayerMask.NameToLayer(Layers.DeathZone))
                 Die();
         }
         private void Die()

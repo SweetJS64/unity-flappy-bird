@@ -35,7 +35,7 @@ namespace Game.Presentation
         private void Update()
         {
             if(!_started) return;
-            Debug.Log("Update");
+            
             _timer += Time.deltaTime;
             if (_timer >= Interval)
             {
@@ -53,7 +53,6 @@ namespace Game.Presentation
         
         private void OnGameStarted()
         {
-            Debug.Log("Game Started");
             _started = true;
         }
         
