@@ -32,6 +32,7 @@ namespace Game.Installers
             Container.DeclareSignal<GameStartedSignal>();
             
             Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameSessionService>().AsSingle();
         }
     }
 }

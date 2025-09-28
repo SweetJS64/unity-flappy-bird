@@ -8,6 +8,7 @@ namespace Game.Installers
         public override void InstallBindings()
         {
             Container.Bind<GameViewModel>().AsSingle();
+            Container.Bind<GameOverViewModel>().AsSingle();
         }
     }
 }
