@@ -30,6 +30,8 @@ namespace Game.Installers
             Container.DeclareSignal<PlayerDiedSignal>();
             Container.DeclareSignal<PlayerScoredSignal>();
             Container.DeclareSignal<GameStartedSignal>();
+            
+            Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
         }
     }
 }
