@@ -1,19 +1,40 @@
-using UnityEngine;
-using Zenject;
 using Game.Menu;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
 
 namespace Game.Presentation.UI
 {
     public class MainMenuView : MonoBehaviour
     {
-        private MainMenuViewModel _vm;
+        [SerializeField] private Button StartButton;
+        [SerializeField] private TMP_Text BestScoreText;
 
-        [Inject]
-        public void Construct(MainMenuViewModel vm)
+        [Inject] private MainMenuViewModel _vm;
+
+        private void Awake()
         {
-            _vm = vm;
+            if (StartButton == null)
+                StartButton = GetComponentInChildren<Button>(true);
+
+            if (BestScoreText == null)
+                BestScoreText = GetComponentInChildren<TMP_Text>(true);
         }
 
-        public void OnStartButtonClicked() => _vm.StartGame();
+        private void OnEnable()
+        {
+            if (BestScoreText != null)
+                BestScoreText.text = $"Best: {_vm.BestScore}";
+
+            if (StartButton != null)
+                StartButton.onClick.AddListener(_vm.StartGame);
+        }
+
+        private void OnDisable()
+        {
+            if (StartButton != null)
+                StartButton.onClick.RemoveListener(_vm.StartGame);
+        }
     }
 }

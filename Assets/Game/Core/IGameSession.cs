@@ -14,11 +14,9 @@ namespace Game.Core
     {
         IReadOnlyReactiveProperty<GameState> State { get; }
         
-        /*TODO:
-        void StartGame();
+        //void StartGame();
         void Pause();
-        void Resume();*/
-        
+        void Resume();
         void Restart();
         void ToMenu();
     }

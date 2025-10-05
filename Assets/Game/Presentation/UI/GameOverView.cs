@@ -1,4 +1,5 @@
 using Game.Menu;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,16 +12,29 @@ namespace Game.Presentation.UI
         [SerializeField] private GameObject PanelRoot;
         [SerializeField] private Button RestartButton;
         [SerializeField] private Button MenuButton;
+        [SerializeField] private TMP_Text BestScoreText;
 
         [Inject] private GameOverViewModel _vm;
 
         private readonly CompositeDisposable _cd = new();
+
+        private void Awake()
+        {
+            if (PanelRoot == null) PanelRoot = gameObject;
+        }
 
         private void OnEnable()
         {
             _vm.IsVisible
                 .Subscribe(visible => PanelRoot.SetActive(visible))
                 .AddTo(_cd);
+
+            if (BestScoreText != null)
+            {
+                _vm.BestScore
+                    .Subscribe(v => BestScoreText.text = $"Best: {v}")
+                    .AddTo(_cd);
+            }
 
             RestartButton.onClick.AddListener(_vm.Restart);
             MenuButton.onClick.AddListener(_vm.ToMenu);

@@ -10,7 +10,7 @@ namespace Game.Presentation.UI
     {
         [SerializeField] private TMP_Text ScoreText;
 
-        [Inject] private GameViewModel _vm;
+        [Inject] private ScoreViewModel _vm;
 
         private readonly CompositeDisposable _disposables = new();
 

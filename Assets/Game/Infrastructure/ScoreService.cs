@@ -1,12 +1,12 @@
 using Game.Core;
 using Game.Core.Signals;
 using UniRx;
-using UnityEngine;
+using System;
 using Zenject;
 
 namespace Game.Infrastructure
 {
-    public class ScoreService : IScoreService, IInitializable, System.IDisposable
+    public class ScoreService : IScoreService, IInitializable, IDisposable
     {
         private readonly SignalBus _signalBus;
         private readonly ReactiveProperty<int> _score = new(0);
@@ -22,14 +22,12 @@ namespace Game.Infrastructure
         {
             _signalBus.Subscribe<PlayerScoredSignal>(OnScored);
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
-            _signalBus.Subscribe<PlayerDiedSignal>(OnPlayerDied);
         }
 
         public void Dispose()
         {
             _signalBus.TryUnsubscribe<PlayerScoredSignal>(OnScored);
             _signalBus.TryUnsubscribe<GameStartedSignal>(OnGameStarted);
-            _signalBus.TryUnsubscribe<PlayerDiedSignal>(OnPlayerDied);
         }
 
         public void Reset() => _score.Value = 0;
@@ -42,10 +40,5 @@ namespace Game.Infrastructure
         } 
 
         private void OnGameStarted() => Reset();
-
-        private void OnPlayerDied()
-        {
-            //TODO: BestScore
-        }
     }
 }

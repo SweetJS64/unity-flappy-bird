@@ -1,6 +1,7 @@
 using Game.Core;
 using Game.Core.Signals;
 using UniRx;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -13,13 +14,12 @@ namespace Game.Infrastructure
 
         public IReadOnlyReactiveProperty<GameState> State => _state;
 
-        public GameSessionService(SignalBus bus)
-        {
-            _bus = bus;
-        }
+        public GameSessionService(SignalBus bus) => _bus = bus;
 
         public void Initialize()
         {
+            Time.timeScale = 1f;
+            
             _bus.Subscribe<GameStartedSignal>(() => Set(GameState.Playing));
             _bus.Subscribe<PlayerDiedSignal>(() => Set(GameState.GameOver));
         }
@@ -30,16 +30,37 @@ namespace Game.Infrastructure
             _bus.TryUnsubscribe<PlayerDiedSignal>(() => Set(GameState.GameOver));
         }
 
-        public void Set(GameState state) => _state.Value = state;
+        private void Set(GameState state)
+        {
+            if (_state.Value == state) _state.SetValueAndForceNotify(state);
+            else _state.Value = state;
 
+            switch (state)
+            {
+                case GameState.Paused:
+                    Time.timeScale = 0f;
+                    break;
+                case GameState.Playing:
+                case GameState.Idle:
+                case GameState.GameOver:
+                    Time.timeScale = 1f;
+                    break;
+            }
+        }
+
+        public void Pause()  => Set(GameState.Paused);
+        public void Resume() => Set(GameState.Playing);
+        
         public void Restart()
         {
+            Time.timeScale = 1f;
             var name = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(name);
         }
 
         public void ToMenu()
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("MenuScene");
         }
     }
