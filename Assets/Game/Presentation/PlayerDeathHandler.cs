@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 using Game.Common;
@@ -13,6 +14,12 @@ namespace Game.Presentation
         [SerializeField] private LayerMask DeathZoneMask;
 
         private bool _isDead;
+        private Rigidbody2D _rb;
+
+        private void Awake()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -32,9 +39,6 @@ namespace Game.Presentation
         private void Die()
         {
             _isDead = true;
-            var ctrl = GetComponent<PlayerController>();
-            ctrl.enabled = false;
-            
             _signalBus.Fire<PlayerDiedSignal>();
         }
     }

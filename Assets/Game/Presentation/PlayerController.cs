@@ -48,6 +48,10 @@ namespace Game.Presentation
         {
             ClampFallSpeed();
         }
+        
+        private void OnEnable() => _bus.Subscribe<PlayerDiedSignal>(OnPlayerDied);
+
+        private void OnDisable() => _bus.TryUnsubscribe<PlayerDiedSignal>(OnPlayerDied);
 
         private void Flap()
         {
@@ -66,6 +70,12 @@ namespace Game.Presentation
         {
             if (_rb.linearVelocity.y < MaxFallSpeed)
                 _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, MaxFallSpeed);
+        }
+        
+        private void OnPlayerDied()
+        {
+            if (_rb.gravityScale == 0) _rb.gravityScale = DefaultGravity;
+            _started = true;
         }
     }
 }
