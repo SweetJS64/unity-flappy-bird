@@ -38,7 +38,6 @@ namespace Game.Presentation
                 {
                     _started = true;
                     _rb.gravityScale = DefaultGravity;
-                    _bus.Fire<GameStartedSignal>();
                 }
                 Flap();
             }

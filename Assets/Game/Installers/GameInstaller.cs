@@ -29,7 +29,7 @@ namespace Game.Installers
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<PlayerDiedSignal>();
             Container.DeclareSignal<PlayerScoredSignal>();
-            Container.DeclareSignal<GameStartedSignal>();
+            //Container.DeclareSignal<GameStartedSignal>();
             
             Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameSessionService>().AsSingle();

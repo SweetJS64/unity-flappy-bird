@@ -38,7 +38,7 @@ namespace Game.Presentation.UI
 
         private void OnGameStateChanged(GameState state)
         {
-            var shouldShow = state == GameState.Playing;
+            var shouldShow = state is GameState.Playing or GameState.Idle;
             PauseButton.gameObject.SetActive(shouldShow);
         }
     }
