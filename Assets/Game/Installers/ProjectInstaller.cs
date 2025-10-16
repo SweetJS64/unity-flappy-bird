@@ -9,6 +9,7 @@ namespace Game.Installers
         public override void InstallBindings()
         {
             Container.Bind<IBestScoreService>().To<BestScoreService>().AsSingle();
+            Container.Bind<IBalanceService>().To<BalanceService>().AsSingle();
         }
     }
 }

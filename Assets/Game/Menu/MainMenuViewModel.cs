@@ -1,4 +1,5 @@
 using Game.Core;
+using UniRx;
 using UnityEngine.SceneManagement;
 
 namespace Game.Menu
@@ -6,17 +7,18 @@ namespace Game.Menu
     public class MainMenuViewModel
     {
         private readonly IBestScoreService _best;
+        private readonly IBalanceService _balance;
 
         public int BestScore => _best.GetBestScore();
-
-        public MainMenuViewModel(IBestScoreService best)
+        public IReadOnlyReactiveProperty<int> Balance => _balance.Balance;
+        
+        public MainMenuViewModel(IBestScoreService best, IBalanceService balance)
         {
             _best = best;
+            _balance = balance;
         }
 
-        public void StartGame()
-        {
-            SceneManager.LoadScene("GameScene");
-        }
+        public void StartGame() => SceneManager.LoadScene("GameScene");
+        public void OpenShop() {}
     }
 }

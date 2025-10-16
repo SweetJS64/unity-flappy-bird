@@ -13,6 +13,8 @@ namespace Game.Presentation.UI
         [SerializeField] private Button RestartButton;
         [SerializeField] private Button MenuButton;
         [SerializeField] private TMP_Text BestScoreText;
+        [SerializeField] private TMP_Text GainedText;
+        [SerializeField] private TMP_Text BalanceText; 
 
         [Inject] private GameOverViewModel _vm;
 
@@ -26,7 +28,14 @@ namespace Game.Presentation.UI
         private void OnEnable()
         {
             _vm.IsVisible
-                .Subscribe(visible => PanelRoot.SetActive(visible))
+                .Subscribe(visible =>
+                {
+                    PanelRoot.SetActive(visible);
+                    if (visible)
+                    {
+                        if (GainedText)  GainedText.text  = $"+{_vm.GainedThisRun}";
+                    }
+                })
                 .AddTo(_cd);
 
             if (BestScoreText != null)
@@ -35,6 +44,14 @@ namespace Game.Presentation.UI
                     .Subscribe(v => BestScoreText.text = $"Best: {v}")
                     .AddTo(_cd);
             }
+            
+            if (BalanceText)
+            {
+                _vm.TotalBalance
+                    .Subscribe(v => BalanceText.text = $"Coins: {v}")
+                    .AddTo(_cd);
+            }
+
 
             RestartButton.onClick.AddListener(_vm.Restart);
             MenuButton.onClick.AddListener(_vm.ToMenu);
