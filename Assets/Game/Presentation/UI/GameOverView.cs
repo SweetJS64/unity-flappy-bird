@@ -41,14 +41,14 @@ namespace Game.Presentation.UI
             if (BestScoreText != null)
             {
                 _vm.BestScore
-                    .Subscribe(v => BestScoreText.text = $"Best: {v}")
+                    .Subscribe(v => BestScoreText.text = $"BEST: {v}")
                     .AddTo(_cd);
             }
             
             if (BalanceText)
             {
                 _vm.TotalBalance
-                    .Subscribe(v => BalanceText.text = $"Coins: {v}")
+                    .Subscribe(v => BalanceText.text = $"COINS: {v}")
                     .AddTo(_cd);
             }
 

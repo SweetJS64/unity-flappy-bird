@@ -28,7 +28,7 @@ namespace Game.Presentation.UI
         {
             if (BalanceText)
                 _vm.Balance
-                    .Subscribe(v => BalanceText.text = $"Coins: {v}")
+                    .Subscribe(v => BalanceText.text = $"COINS: {v}")
                     .AddTo(_cd);
 
             Rebuild();

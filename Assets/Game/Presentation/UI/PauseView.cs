@@ -31,7 +31,7 @@ namespace Game.Presentation.UI
                 {
                     PanelRoot.SetActive(visible);
                     if (visible && BestScoreText != null)
-                        BestScoreText.text = $"Best: {_vm.BestScore}";
+                        BestScoreText.text = $"BEST: {_vm.BestScore}";
                 })
                 .AddTo(_cd);
 

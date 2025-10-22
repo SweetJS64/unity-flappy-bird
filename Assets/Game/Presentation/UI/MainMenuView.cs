@@ -26,8 +26,8 @@ namespace Game.Presentation.UI
         private void OnEnable()
         {
             if (StartButton) StartButton.onClick.AddListener(_vm.StartGame);
-            if (BestScoreText) BestScoreText.text = $"Best: {_vm.BestScore}";
-            if (BalanceText) _vm.Balance.Subscribe(value => BalanceText.text = $"Coins: {value}")
+            if (BestScoreText) BestScoreText.text = $"BEST: {_vm.BestScore}";
+            if (BalanceText) _vm.Balance.Subscribe(value => BalanceText.text = $"COINS: {value}")
                     .AddTo(_cd);
             if (ShopButton && ShopPanel) ShopButton.onClick.AddListener(OpenShop);
             if (ShopView) ShopView.Closed += OnShopClosed;
