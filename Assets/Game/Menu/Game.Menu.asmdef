@@ -3,7 +3,8 @@
     "rootNamespace": "Game.Menu",
     "references": [
         "GUID:be40f087ad0895e4b959d6737a7420bd",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:a35e86d66ecf2b6449170172791e46b0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

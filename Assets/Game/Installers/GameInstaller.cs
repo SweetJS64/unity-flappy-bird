@@ -11,7 +11,7 @@ namespace Game.Installers
     {
         [Header("Pipes")]
         [SerializeField] private PipeObstacle PipePrefab;
-        [SerializeField] private Transform PipesRoot; 
+        [SerializeField] private Transform PipesRoot;
         
         public override void InstallBindings()
         {

@@ -1290,6 +1290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb6a8d6fd2a9a246b504b54e215b8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkinCatalog: {fileID: 11400000, guid: af62da6516a21984894726619a97d2db, type: 2}
 --- !u!4 &624880987
 Transform:
   m_ObjectHideFlags: 0
@@ -1595,33 +1596,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -149515519740546213, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: m_Radius
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: -149515519740546213, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: -149515519740546213, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2810827572711521048, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: JumpSpeed
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 7322479139939081348, guid: ba325905b9783dd42801390eff061fca, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7322479139939081351, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7322479139939081351, guid: ba325905b9783dd42801390eff061fca, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7322479139939081351, guid: ba325905b9783dd42801390eff061fca, type: 3}
       propertyPath: m_LocalPosition.x

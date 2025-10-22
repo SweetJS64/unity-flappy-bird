@@ -26,8 +26,8 @@ namespace Game.Menu
             IBalanceService balanceService)
         {
             _session = session;
-            _score   = scoreService;
-            _best    = bestScoreService;
+            _score = scoreService;
+            _best = bestScoreService;
             _balance = balanceService;
 
             _bestScore.Value = _best.GetBestScore();
