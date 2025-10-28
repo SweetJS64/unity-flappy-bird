@@ -14,11 +14,11 @@ namespace Game.Presentation
         [SerializeField] private LayerMask DeathZoneMask;
 
         private bool _isDead;
-        private Rigidbody2D _rb;
+        private Collider2D _col;
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
+            _col = GetComponent<Collider2D>();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -39,6 +39,7 @@ namespace Game.Presentation
         private void Die()
         {
             _isDead = true;
+            _col.enabled = false;
             _signalBus.Fire<PlayerDiedSignal>();
         }
     }
