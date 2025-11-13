@@ -1,6 +1,7 @@
 using Game.Core;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace Game.Presentation.Environment
 {
@@ -37,7 +38,7 @@ namespace Game.Presentation.Environment
             _layers = new Renderer[transform.childCount];
             for (var i = 0; i < _layers.Length; i++)
                 _layers[i] = transform.GetChild(i).GetComponent<Renderer>();
-            _layers = System.Array.FindAll(_layers, r => r != null);
+            _layers = Array.FindAll(_layers, r => r != null);
 
             if (_layers.Length == 0)
             {
@@ -77,8 +78,12 @@ namespace Game.Presentation.Environment
         private void Update()
         {
             if (_layers == null || _layers.Length == 0) return;
-            if (_session != null && _session.State.Value == GameState.GameOver) return;
-
+            if (_session != null)
+            {
+                var state = _session.State.Value;
+                if (state == GameState.Paused || state == GameState.GameOver)
+                    return;
+            }
             var currentAspect = TargetCamera != null ? TargetCamera.aspect : (float)Screen.width / Screen.height;
             if (_lastW != Screen.width || _lastH != Screen.height || !Mathf.Approximately(_lastAspect, currentAspect))
             {
@@ -123,7 +128,7 @@ namespace Game.Presentation.Environment
 
         private void RecalculateTilingToFitWidth()
         {
-            for (int i = 0; i < _layers.Length; i++)
+            for (var i = 0; i < _layers.Length; i++)
             {
                 var r = _layers[i];
                 var size = r.bounds.size;
