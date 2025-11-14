@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c3285e8808e7a48876c51ebe373196, type: 3}
+  m_Name: Skin_B3_Orange
+  m_EditorClassIdentifier: 
+  Id: B3_Orange
+  DisplayName: Lena
+  Price: 30
+  AnimatorController: {fileID: 9100000, guid: 51405e5a66f4b454c81192b6e610594a, type: 2}
+  Icon: {fileID: -6907072107442916967, guid: 6ac408124b4fe5f49ac61db2bf90a89f, type: 3}
+  ColliderOffset: {x: 0.2, y: -0.4}
+  ColliderSize: {x: 3.1, y: 2.5}

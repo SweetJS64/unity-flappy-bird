@@ -13,8 +13,11 @@ namespace Game.Skins
         public int Price;
 
         [Header("Visuals")]
-        public Sprite Sprite;
         public RuntimeAnimatorController AnimatorController;
         public Sprite Icon;
+        
+        [Header("Collider")]
+        public Vector2 ColliderOffset;
+        public Vector2 ColliderSize;
     }
 }

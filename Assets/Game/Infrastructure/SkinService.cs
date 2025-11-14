@@ -17,7 +17,7 @@ namespace Game.Infrastructure
 
         private readonly string _defaultSkinId;
         
-        public SkinService(string defaultSkinId = "Red")
+        public SkinService(string defaultSkinId = "B1_Red")
         {
             _defaultSkinId = defaultSkinId;
             

@@ -12,7 +12,7 @@ namespace Game.Presentation.Environment
         [SerializeField] private float[] LayerFactors = { 0.1f, 0.3f, 0.5f };
 
         [Header("Advanced")]
-        [SerializeField] private bool UseUnscaledTime = false;
+        [SerializeField] private bool UseUnscaledTime;
         [SerializeField] private string TextureProperty = "_BaseMap";
         [SerializeField] private Camera TargetCamera;
 

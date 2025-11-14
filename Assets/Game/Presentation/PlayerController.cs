@@ -22,12 +22,14 @@ namespace Game.Presentation
         [SerializeField] private float TiltLerp = 8f;
 
         private Rigidbody2D _rb;
+        private Animator _animator;
         private bool _started;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _rb.gravityScale = 0f;
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -38,6 +40,7 @@ namespace Game.Presentation
                 {
                     _started = true;
                     _rb.gravityScale = DefaultGravity;
+                    _animator.SetBool("GameStarted", true);
                 }
                 Flap();
             }
@@ -56,6 +59,8 @@ namespace Game.Presentation
         private void Flap()
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, JumpSpeed);
+            if (_animator != null)
+                _animator.SetTrigger("Flap");
         }
 
         private void Tilt()
@@ -76,6 +81,7 @@ namespace Game.Presentation
         {
             if (_rb.gravityScale == 0) _rb.gravityScale = DefaultGravity;
             _started = true;
+            _animator.enabled = false;
         }
     }
 }

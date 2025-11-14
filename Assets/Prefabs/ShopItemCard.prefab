@@ -92,6 +92,9 @@ MonoBehaviour:
   BuyButton: {fileID: 5842821390365939546}
   SelectButton: {fileID: 3864168500260778694}
   SelectedBadge: {fileID: 4152280229168397299}
+  Background: {fileID: 8266799980571830062}
+  NotOwnedSprite: {fileID: 21300000, guid: 1f07d727fcb40f347b8bb272ecfe734a, type: 3}
+  OwnedSprite: {fileID: 21300000, guid: 7ca6d886bd040db4094470bf9ebaa4ed, type: 3}
 --- !u!222 &2686242189941626530
 CanvasRenderer:
   m_ObjectHideFlags: 0

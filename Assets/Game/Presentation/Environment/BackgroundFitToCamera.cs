@@ -23,9 +23,9 @@ namespace Game.Presentation.Environment
             var camHeight = 2f * TargetCamera.orthographicSize;
             var camWidth = camHeight * TargetCamera.aspect;
 
-            Vector2 spriteSize = sr.sprite.bounds.size;
+            var spriteSize = sr.sprite.bounds.size;
 
-            Vector3 scale = transform.localScale;
+            var scale = transform.localScale;
             scale.x = camWidth / spriteSize.x;
             scale.y = camHeight / spriteSize.y;
             transform.localScale = scale;

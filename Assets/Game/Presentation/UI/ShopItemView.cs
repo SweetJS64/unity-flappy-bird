@@ -16,6 +16,11 @@ namespace Game.Presentation.UI
         [SerializeField] private Button SelectButton;
         [SerializeField] private GameObject SelectedBadge;
 
+        [Header("Background")]
+        [SerializeField] private Image Background;
+        [SerializeField] private Sprite NotOwnedSprite;
+        [SerializeField] private Sprite OwnedSprite; 
+        
         private readonly CompositeDisposable _cd = new();
 
         public void Bind(ShopViewModel vm, ShopItemVM item)
@@ -30,10 +35,11 @@ namespace Game.Presentation.UI
                 {
                     var (owned, selected) = state;
 
-                    if (BuyButton)     BuyButton.gameObject.SetActive(!owned);
-                    if (SelectButton)  SelectButton.gameObject.SetActive(owned && !selected);
+                    if (BuyButton) BuyButton.gameObject.SetActive(!owned);
+                    if (SelectButton) SelectButton.gameObject.SetActive(owned && !selected);
                     if (SelectedBadge) SelectedBadge.SetActive(selected);
-                    if (PriceText)     PriceText.gameObject.SetActive(!owned);
+                    if (PriceText) PriceText.gameObject.SetActive(!owned);
+                    if (Background) Background.sprite = owned ? OwnedSprite : NotOwnedSprite;
                 })
                 .AddTo(_cd);
 

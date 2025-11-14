@@ -8,6 +8,7 @@ namespace Game.Presentation
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(CapsuleCollider2D))]
     public class SkinController : MonoBehaviour
     {
         [Inject] private ISkinService _skins;
@@ -15,12 +16,14 @@ namespace Game.Presentation
 
         private SpriteRenderer _sr;
         private Animator _anim;
+        private CapsuleCollider2D _collider;
         private readonly CompositeDisposable _cd = new();
-
+        
         private void Awake()
         {
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
+            _collider = GetComponent<CapsuleCollider2D>();
         }
 
         private void OnEnable()
@@ -47,16 +50,22 @@ namespace Game.Presentation
                 return;
             }
 
-            if (def.Sprite != null)
-                _sr.sprite = def.Sprite;
-
+            if (def.Icon != null) _sr.sprite = def.Icon;
+            
+            if (_collider != null)
+            {
+                _collider.offset = def.ColliderOffset;
+                _collider.size   = def.ColliderSize;
+            }
+            
             if (def.AnimatorController != null && _anim.runtimeAnimatorController != def.AnimatorController)
             {
                 _anim.runtimeAnimatorController = def.AnimatorController;
-
                 _anim.Rebind();
                 _anim.Update(0f);
             }
+            
+            
         }
     }
 }
