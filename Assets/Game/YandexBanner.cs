@@ -13,7 +13,7 @@ public class YandexBanner : MonoBehaviour
 #if UNITY_EDITOR
             "demo-banner-yandex";
 #else
-            productionAdUnitId;
+            ProductionAdUnitId;
 #endif
         
         var widthDp = GetScreenWidthDp();

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: B1_Red
   DisplayName: Alex
-  Price: 10
+  Price: 0
   AnimatorController: {fileID: 9100000, guid: 9c609cf1e9407d44aabdba750a3d6ab7, type: 2}
   Icon: {fileID: 5978898516894778253, guid: ad3c87731cce59d4ea02243809ebd4a7, type: 3}
   ColliderOffset: {x: 0.2, y: -0.2}

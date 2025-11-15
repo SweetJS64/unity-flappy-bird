@@ -16,7 +16,7 @@ namespace Game.Installers
             Container.Bind<ISkinService>()
                 .To<SkinService>()
                 .AsSingle()
-                .WithArguments("Red");
+                .WithArguments("B1_Red");
             Container.Bind<SkinCatalog>()
                 .FromInstance(SkinCatalog)
                 .AsSingle();
