@@ -6,6 +6,7 @@ using Zenject;
 namespace Game.Presentation
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Animator))]
     public class PlayerController : MonoBehaviour
     {
         [Inject] private IInputService _input;
@@ -24,6 +25,9 @@ namespace Game.Presentation
         private Rigidbody2D _rb;
         private Animator _animator;
         private bool _started;
+        
+        private static readonly int HashGameStarted = Animator.StringToHash("GameStarted");
+        private static readonly int HashFlap    = Animator.StringToHash("Flap");
 
         private void Awake()
         {
@@ -40,7 +44,7 @@ namespace Game.Presentation
                 {
                     _started = true;
                     _rb.gravityScale = DefaultGravity;
-                    _animator.SetBool("GameStarted", true);
+                    _animator.SetBool(HashGameStarted, true);
                 }
                 Flap();
             }
@@ -60,7 +64,7 @@ namespace Game.Presentation
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, JumpSpeed);
             if (_animator != null)
-                _animator.SetTrigger("Flap");
+                _animator.SetTrigger(HashFlap);
         }
 
         private void Tilt()

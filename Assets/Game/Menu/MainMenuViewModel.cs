@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.Common;
 using UniRx;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,7 @@ namespace Game.Menu
             _balance = balance;
         }
 
-        public void StartGame() => SceneManager.LoadScene("GameScene");
+        public void StartGame() => SceneManager.LoadScene(Scenes.Game);
         public void OpenShop() {}
     }
 }

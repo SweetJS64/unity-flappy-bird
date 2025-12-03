@@ -1,5 +1,6 @@
 using Game.Core;
 using Game.Core.Signals;
+using Game.Common;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,7 +62,7 @@ namespace Game.Infrastructure
         public void ToMenu()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("MenuScene");
+            SceneManager.LoadScene(Scenes.Menu);
         }
     }
 }
