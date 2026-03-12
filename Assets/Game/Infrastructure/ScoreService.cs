@@ -28,9 +28,7 @@ namespace Game.Infrastructure
             _signalBus.TryUnsubscribe<PlayerScoredSignal>(OnScored);
         }
 
-        public void Reset() => _score.Value = 0;
-
-        public void Add(int value) => _score.Value += value;
+        private void Add(int value) => _score.Value += value;
 
         private void OnScored(PlayerScoredSignal signal) => Add(signal.Value);
     }

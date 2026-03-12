@@ -64,8 +64,6 @@ namespace Game.Presentation
                 _anim.Rebind();
                 _anim.Update(0f);
             }
-            
-            
         }
     }
 }

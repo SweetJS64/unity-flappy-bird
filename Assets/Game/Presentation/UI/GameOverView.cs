@@ -52,7 +52,6 @@ namespace Game.Presentation.UI
                     .AddTo(_cd);
             }
 
-
             RestartButton.onClick.AddListener(_vm.Restart);
             MenuButton.onClick.AddListener(_vm.ToMenu);
         }

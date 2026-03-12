@@ -27,7 +27,7 @@ namespace Game.Presentation
         }
 
         private void OnEnable()   => _bus.Subscribe<PlayerDiedSignal>(OnPlayerDied);
-        private void OnDisable()  => _bus.Unsubscribe<PlayerDiedSignal>(OnPlayerDied);
+        private void OnDisable()  => _bus.TryUnsubscribe<PlayerDiedSignal>(OnPlayerDied);
 
         private void Update()
         {

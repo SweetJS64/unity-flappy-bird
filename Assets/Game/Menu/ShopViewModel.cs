@@ -14,8 +14,11 @@ namespace Game.Menu
         public int Price { get; }
         public Sprite Icon { get; }
 
-        public readonly ReactiveProperty<bool> Owned = new(false);
-        public readonly ReactiveProperty<bool> Selected = new(false);
+        public IReadOnlyReactiveProperty<bool> Owned => _owned;
+        public IReadOnlyReactiveProperty<bool> Selected => _selected;
+
+        private readonly ReactiveProperty<bool> _owned = new(false);
+        private readonly ReactiveProperty<bool> _selected = new(false);
 
         public ShopItemVM(SkinDef def)
         {
@@ -24,6 +27,9 @@ namespace Game.Menu
             Price = def.Price;
             Icon = def.Icon;
         }
+
+        internal void SetOwned(bool value)    => _owned.Value = value;
+        internal void SetSelected(bool value) => _selected.Value = value;
     }
 
     public sealed class ShopViewModel : System.IDisposable
@@ -72,13 +78,6 @@ namespace Game.Menu
             _skins.Select(item.Id);
         }
 
-        public bool CanBuy(string id)
-        {
-            var item = Find(id);
-            if (item == null) return false;
-            return !_skins.IsOwned(item.Id) && _balance.Balance.Value >= item.Price;
-        }
-
         private ShopItemVM Find(string id) => _items.FirstOrDefault(i => i.Id == id);
 
         private void SyncAll()
@@ -90,14 +89,14 @@ namespace Game.Menu
         private void SyncOwned()
         {
             foreach (var it in _items)
-                it.Owned.Value = _skins.IsOwned(it.Id);
+                it.SetOwned(_skins.IsOwned(it.Id));
         }
 
         private void SyncSelected()
         {
             var selected = _skins.SelectedId.Value;
             foreach (var it in _items)
-                it.Selected.Value = (it.Id == selected);
+                it.SetSelected(it.Id == selected);
         }
     }
 }

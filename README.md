@@ -38,7 +38,7 @@ Assets/Game/
 
 Каждый слой - отдельная **Assembly Definition**. Зависимости между слоями контролируются компилятором: `Game.Core` физически не может импортировать `Game.Presentation`. Нарушение архитектуры = ошибка компиляции.
 
-Коммуникация между слоями - через **SignalBus**: `GameStartedSignal`, `PlayerDiedSignal`, `PlayerScoredSignal`. Ни один модуль не знает о существовании другого напрямую.
+Коммуникация между слоями - через **SignalBus**: `PlayerDiedSignal`, `PlayerScoredSignal`. Ни один модуль не знает о существовании другого напрямую.
 
 Платформенный ввод (`DesktopInputService` / `MobileInputService`) подменяется через DI по директиве компилятора - без единого `#if` в игровом коде.
 
@@ -78,7 +78,7 @@ _signalBus.Fire<PlayerDiedSignal>();
 
 // PipeMover, ScoreService, GameSessionService - каждый слушает независимо
 private void OnEnable()  => _bus.Subscribe<PlayerDiedSignal>(OnPlayerDied);
-private void OnDisable() => _bus.Unsubscribe<PlayerDiedSignal>(OnPlayerDied);
+private void OnDisable() => _bus.TryUnsubscribe<PlayerDiedSignal>(OnPlayerDied);
 ```
 
 **MVVM + UniRx - View не знает когда обновляться, просто подписан:**
@@ -87,12 +87,12 @@ private void OnDisable() => _bus.Unsubscribe<PlayerDiedSignal>(OnPlayerDied);
 // ScoreTextView.cs
 _vm.Score
     .Subscribe(value => ScoreText.text = value.ToString())
-    .AddTo(_disposables);
+    .AddTo(_cd);
 
 // GameOverViewModel.cs - видимость экрана = производная от состояния сессии
-IsVisible = _session.State
-    .Select(s => s == GameState.GameOver)
-    .ToReactiveProperty();
+_session.State
+    .Subscribe(s => _isVisible.Value = s == GameState.GameOver)
+    .AddTo(_cd);
 ```
 
 ---

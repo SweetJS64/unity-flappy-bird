@@ -33,6 +33,8 @@ namespace Game.Infrastructure
 
         private void Set(GameState state)
         {
+            // При повторном входе в то же состояние принудительно уведомляем подписчиков,
+            // чтобы View корректно переотрисовался (например, повторный GameOver при рестарте).
             if (_state.Value == state) _state.SetValueAndForceNotify(state);
             else _state.Value = state;
 

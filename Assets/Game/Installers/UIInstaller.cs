@@ -8,8 +8,8 @@ namespace Game.Installers
         public override void InstallBindings()
         {
             Container.Bind<ScoreViewModel>().AsSingle();
-            Container.Bind<GameOverViewModel>().AsSingle();
-            Container.Bind<PauseViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameOverViewModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PauseViewModel>().AsSingle();
         }
     }
 }

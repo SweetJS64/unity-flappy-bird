@@ -65,12 +65,14 @@ namespace Game.Infrastructure
 
             _selectedId.Value = id;
             PlayerPrefs.SetString(SelectedKey, id);
+            PlayerPrefs.Save();
         }
 
         private void SaveOwned()
         {
             var csv = string.Join(",", _owned);
             PlayerPrefs.SetString(OwnedKey, csv);
+            PlayerPrefs.Save();
         }
     }
 }

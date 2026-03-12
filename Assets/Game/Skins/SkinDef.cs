@@ -6,12 +6,12 @@ namespace Game.Skins
     public class SkinDef : ScriptableObject
     {
         [Header("Identity")]
-        public string Id;              
+        public string Id;
         public string DisplayName;
+        public bool IsDefault;
 
         [Header("Economy")]
         public int Price;
-        public bool IsDefault;
 
         [Header("Visuals")]
         public RuntimeAnimatorController AnimatorController;

@@ -4,6 +4,5 @@ namespace Game.Core
     {
         int GetBestScore();
         void SetBestScore(int value);
-        bool HasBestScore();
     }
 }

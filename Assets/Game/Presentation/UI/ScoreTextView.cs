@@ -12,7 +12,7 @@ namespace Game.Presentation.UI
 
         [Inject] private ScoreViewModel _vm;
 
-        private readonly CompositeDisposable _disposables = new();
+        private readonly CompositeDisposable _cd = new();
 
         private void OnEnable()
         {
@@ -21,12 +21,12 @@ namespace Game.Presentation.UI
 
             _vm.Score
                 .Subscribe(value => ScoreText.text = value.ToString())
-                .AddTo(_disposables);
+                .AddTo(_cd);
         }
 
         private void OnDisable()
         {
-            _disposables.Clear();
+            _cd.Clear();
         }
     }
 }

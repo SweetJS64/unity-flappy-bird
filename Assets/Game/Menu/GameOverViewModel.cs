@@ -10,14 +10,15 @@ namespace Game.Menu
         private readonly IBestScoreService _best;
         private readonly IBalanceService _balance;
 
-        private readonly ReactiveProperty<int> _bestScore = new();
+        private readonly ReactiveProperty<bool> _isVisible = new(false);
+        private readonly ReactiveProperty<int> _bestScore;
         private readonly CompositeDisposable _cd = new();
 
-        public IReadOnlyReactiveProperty<bool> IsVisible { get; }
+        public IReadOnlyReactiveProperty<bool> IsVisible => _isVisible;
         public IReadOnlyReactiveProperty<int> BestScore => _bestScore;
 
         public int GainedThisRun => _score.Score.Value;
-        public IReadOnlyReactiveProperty<int> TotalBalance => _balance.Balance; 
+        public IReadOnlyReactiveProperty<int> TotalBalance => _balance.Balance;
 
         public GameOverViewModel(
             IGameSession session,
@@ -30,13 +31,13 @@ namespace Game.Menu
             _best = bestScoreService;
             _balance = balanceService;
 
-            _bestScore.Value = _best.GetBestScore();
+            _bestScore = new(_best.GetBestScore());
 
-            IsVisible = _session.State
-                .Select(s => s == GameState.GameOver)
-                .ToReactiveProperty();
+            _session.State
+                .Subscribe(s => _isVisible.Value = s == GameState.GameOver)
+                .AddTo(_cd);
 
-            IsVisible
+            _isVisible
                 .Where(v => v)
                 .Subscribe(_ => TryUpdateBest())
                 .AddTo(_cd);
@@ -56,6 +57,11 @@ namespace Game.Menu
 
         public void Restart() => _session.Restart();
         public void ToMenu()  => _session.ToMenu();
-        public void Dispose() => _cd.Dispose();
+        public void Dispose()
+        {
+            _cd.Dispose();
+            _isVisible.Dispose();
+            _bestScore.Dispose();
+        }
     }
 }

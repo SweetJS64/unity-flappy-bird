@@ -14,7 +14,5 @@ namespace Game.Infrastructure
             PlayerPrefs.SetInt(BestScoreKey, value);
             PlayerPrefs.Save();
         }
-
-        public bool HasBestScore() => PlayerPrefs.HasKey(BestScoreKey);
     }
 }

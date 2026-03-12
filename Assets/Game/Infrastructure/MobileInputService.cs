@@ -1,13 +1,15 @@
 using Game.Core;
 using UnityEngine;
-using Zenject;
 using UnityEngine.EventSystems;
 
 namespace Game.Infrastructure
 {
     public class MobileInputService : IInputService
     {
-        [Inject] private IGameSession _session;
+        private readonly IGameSession _session;
+
+        public MobileInputService(IGameSession session) => _session = session;
+
         public bool IsJumpPressed()
         {
             if (_session.State.Value != GameState.Playing)
