@@ -27,29 +27,28 @@ namespace Game.Presentation.UI
         {
             if (StartButton) StartButton.onClick.AddListener(_vm.StartGame);
             if (BestScoreText) BestScoreText.text = $"BEST: {_vm.BestScore}";
-            if (BalanceText) _vm.Balance.Subscribe(value => BalanceText.text = $"COINS: {value}")
-                    .AddTo(_cd);
-            if (ShopButton && ShopPanel) ShopButton.onClick.AddListener(OpenShop);
-            if (ShopView) ShopView.Closed += OnShopClosed;
+            if (BalanceText) _vm.Balance
+                .Subscribe(value => BalanceText.text = $"COINS: {value}")
+                .AddTo(_cd);
+
+            _vm.IsShopOpen
+                .Subscribe(isOpen =>
+                {
+                    if (ShopPanel) ShopPanel.SetActive(isOpen);
+                    if (MainBlockRoot) MainBlockRoot.SetActive(!isOpen);
+                })
+                .AddTo(_cd);
+
+            if (ShopButton) ShopButton.onClick.AddListener(_vm.OpenShop);
+            if (ShopView) ShopView.Closed += _vm.CloseShop;
         }
 
         private void OnDisable()
         {
             _cd.Clear();
             if (StartButton) StartButton.onClick.RemoveListener(_vm.StartGame);
-            if (ShopButton) ShopButton.onClick.RemoveListener(OpenShop);
-            if (ShopView) ShopView.Closed -= OnShopClosed;
-        }
-        
-        private void OpenShop()
-        {
-            if (ShopPanel) ShopPanel.SetActive(true);
-            if (MainBlockRoot) MainBlockRoot.SetActive(false);
-        }
-
-        private void OnShopClosed()
-        {
-            if (MainBlockRoot) MainBlockRoot.SetActive(true);
+            if (ShopButton) ShopButton.onClick.RemoveListener(_vm.OpenShop);
+            if (ShopView) ShopView.Closed -= _vm.CloseShop;
         }
     }
 }

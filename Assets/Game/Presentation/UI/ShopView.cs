@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using System;
+using System.Collections.Generic;
 
 namespace Game.Presentation.UI
 {
@@ -21,8 +22,19 @@ namespace Game.Presentation.UI
         [Inject] private ShopViewModel _vm;
 
         private readonly CompositeDisposable _cd = new();
-        
+        private readonly List<(ShopItemView card, ShopItemVM item)> _cards = new();
+
         public event Action Closed;
+
+        private void Awake()
+        {
+            foreach (var item in _vm.Items)
+            {
+                var card = Instantiate(ItemPrefab, Content);
+                card.gameObject.SetActive(true);
+                _cards.Add((card, item));
+            }
+        }
 
         private void OnEnable()
         {
@@ -31,37 +43,18 @@ namespace Game.Presentation.UI
                     .Subscribe(v => BalanceText.text = $"COINS: {v}")
                     .AddTo(_cd);
 
-            Rebuild();
+            foreach (var (card, item) in _cards)
+                card.Bind(_vm, item);
 
-            if (CloseButton) CloseButton.onClick.AddListener(Close);;
+            if (CloseButton) CloseButton.onClick.AddListener(Close);
         }
 
         private void OnDisable()
         {
             _cd.Clear();
             if (CloseButton) CloseButton.onClick.RemoveListener(Close);
-            ClearContent();
         }
 
-        private void Rebuild()
-        {
-            ClearContent();
-
-            foreach (var item in _vm.Items)
-            {
-                var card = Instantiate(ItemPrefab, Content);
-                card.gameObject.SetActive(true);
-                card.Bind(_vm, item);
-            }
-        }
-
-        private void ClearContent()
-        {
-            if (!Content) return;
-            for (int i = Content.childCount - 1; i >= 0; i--)
-                Destroy(Content.GetChild(i).gameObject);
-        }
-        
         private void Close()
         {
             gameObject.SetActive(false);

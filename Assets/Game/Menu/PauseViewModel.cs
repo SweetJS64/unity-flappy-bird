@@ -5,25 +5,30 @@ namespace Game.Menu
 {
     public class PauseViewModel
     {
-        public IGameSession Session { get; }
+        private readonly IGameSession _session;
         private readonly IBestScoreService _bestScore;
 
         public IReadOnlyReactiveProperty<bool> IsVisible { get; }
+        public IReadOnlyReactiveProperty<bool> IsPauseButtonVisible { get; }
 
         public PauseViewModel(IGameSession session, IBestScoreService bestScore)
         {
-            Session = session;
+            _session = session;
             _bestScore = bestScore;
 
             IsVisible = session.State
                 .Select(s => s == GameState.Paused)
                 .ToReactiveProperty();
+
+            IsPauseButtonVisible = session.State
+                .Select(s => s == GameState.Playing)
+                .ToReactiveProperty();
         }
 
         public int BestScore => _bestScore.GetBestScore();
 
-        public void Pause()  => Session.Pause();
-        public void Resume() => Session.Resume();
-        public void ToMenu() => Session.ToMenu();
+        public void Pause()  => _session.Pause();
+        public void Resume() => _session.Resume();
+        public void ToMenu() => _session.ToMenu();
     }
 }

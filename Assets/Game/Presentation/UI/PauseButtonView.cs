@@ -1,5 +1,4 @@
 using Game.Menu;
-using Game.Core;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,8 +22,8 @@ namespace Game.Presentation.UI
 
         private void OnEnable()
         {
-            _vm.Session.State
-                .Subscribe(OnGameStateChanged)
+            _vm.IsPauseButtonVisible
+                .Subscribe(visible => PauseButton.gameObject.SetActive(visible))
                 .AddTo(_cd);
 
             PauseButton.onClick.AddListener(_vm.Pause);
@@ -34,12 +33,6 @@ namespace Game.Presentation.UI
         {
             _cd.Clear();
             PauseButton.onClick.RemoveListener(_vm.Pause);
-        }
-
-        private void OnGameStateChanged(GameState state)
-        {
-            var shouldShow = state == GameState.Playing;
-            PauseButton.gameObject.SetActive(shouldShow);
         }
     }
 }
