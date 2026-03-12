@@ -16,6 +16,7 @@ namespace Game.Infrastructure
             if (amount <= 0) return;
             _balance.Value += amount;
             PlayerPrefs.SetInt(Key, _balance.Value);
+            PlayerPrefs.Save();
         }
 
         public bool TrySpend(int amount)
@@ -23,6 +24,7 @@ namespace Game.Infrastructure
             if (amount <= 0 || _balance.Value < amount) return false;
             _balance.Value -= amount;
             PlayerPrefs.SetInt(Key, _balance.Value);
+            PlayerPrefs.Save();
             return true;
         }
     }

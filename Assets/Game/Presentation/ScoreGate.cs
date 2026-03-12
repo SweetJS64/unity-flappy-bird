@@ -11,6 +11,7 @@ namespace Game.Presentation
 
         [Inject] private SignalBus _bus;
 
-        private void OnTriggerEnter2D(Collider2D other) => _bus.Fire(new PlayerScoredSignal(Points));
+        private void OnTriggerEnter2D(Collider2D other) => 
+            _bus.Fire(new PlayerScoredSignal(Points));
     }
 }

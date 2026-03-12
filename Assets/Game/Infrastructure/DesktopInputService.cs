@@ -11,7 +11,7 @@ namespace Game.Infrastructure
         
         public bool IsJumpPressed()
         {
-            if (_session.State.Value != GameState.Playing && _session.State.Value != GameState.Idle)
+            if (_session.State.Value != GameState.Playing)
                 return false;
 
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())

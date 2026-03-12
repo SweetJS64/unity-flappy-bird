@@ -61,7 +61,7 @@ namespace Game.Menu
             var item = Find(id);
             if (item == null) return;
 
-            if (_skins.TryBuy(item.Id, item.Price, _balance))
+            if (_skins.TryBuy(item.Id, item.Price))
                 SyncOwned();
         }
 

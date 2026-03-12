@@ -41,7 +41,6 @@ namespace Game.Presentation.UI
             _cd.Clear();
             if (CloseButton) CloseButton.onClick.RemoveListener(Close);
             ClearContent();
-            Closed?.Invoke();
         }
 
         private void Rebuild()

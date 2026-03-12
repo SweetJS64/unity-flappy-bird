@@ -15,10 +15,12 @@ namespace Game.Infrastructure
 
         public IReadOnlyReactiveProperty<string> SelectedId => _selectedId;
 
+        private readonly IBalanceService _balance;
         private readonly string _defaultSkinId;
-        
-        public SkinService(string defaultSkinId = "B1_Red") 
+
+        public SkinService(IBalanceService balance, string defaultSkinId = "B1_Red")
         {
+            _balance = balance;
             _defaultSkinId = defaultSkinId;
             
             var csv = PlayerPrefs.GetString(OwnedKey, "");
@@ -44,11 +46,11 @@ namespace Game.Infrastructure
 
         public bool IsOwned(string id) => !string.IsNullOrEmpty(id) && _owned.Contains(id);
 
-        public bool TryBuy(string id, int price, IBalanceService balance)
+        public bool TryBuy(string id, int price)
         {
             if (string.IsNullOrEmpty(id)) return false;
             if (IsOwned(id)) return true;
-            if (!balance.TrySpend(price)) return false;
+            if (!_balance.TrySpend(price)) return false;
 
             _owned.Add(id);
             SaveOwned();

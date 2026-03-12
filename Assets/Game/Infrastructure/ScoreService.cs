@@ -21,24 +21,17 @@ namespace Game.Infrastructure
         public void Initialize()
         {
             _signalBus.Subscribe<PlayerScoredSignal>(OnScored);
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
         }
 
         public void Dispose()
         {
             _signalBus.TryUnsubscribe<PlayerScoredSignal>(OnScored);
-            _signalBus.TryUnsubscribe<GameStartedSignal>(OnGameStarted);
         }
 
         public void Reset() => _score.Value = 0;
 
         public void Add(int value) => _score.Value += value;
 
-        private void OnScored(PlayerScoredSignal signal)
-        { 
-            Add(signal.Value);
-        } 
-
-        private void OnGameStarted() => Reset();
+        private void OnScored(PlayerScoredSignal signal) => Add(signal.Value);
     }
 }

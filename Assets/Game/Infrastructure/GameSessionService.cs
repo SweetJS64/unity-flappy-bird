@@ -11,7 +11,7 @@ namespace Game.Infrastructure
     public class GameSessionService : IGameSession, IInitializable, System.IDisposable
     {
         private readonly SignalBus _bus;
-        private readonly ReactiveProperty<GameState> _state = new(GameState.Idle);
+        private readonly ReactiveProperty<GameState> _state = new(GameState.Playing);
 
         public IReadOnlyReactiveProperty<GameState> State => _state;
 
@@ -20,16 +20,16 @@ namespace Game.Infrastructure
         public void Initialize()
         {
             Time.timeScale = 1f;
-            
-            _bus.Subscribe<GameStartedSignal>(() => Set(GameState.Playing));
-            _bus.Subscribe<PlayerDiedSignal>(() => Set(GameState.GameOver));
+
+            _bus.Subscribe<PlayerDiedSignal>(OnPlayerDied);
         }
 
         public void Dispose()
         {
-            _bus.TryUnsubscribe<GameStartedSignal>(() => Set(GameState.Playing));
-            _bus.TryUnsubscribe<PlayerDiedSignal>(() => Set(GameState.GameOver));
+            _bus.TryUnsubscribe<PlayerDiedSignal>(OnPlayerDied);
         }
+
+        private void OnPlayerDied() => Set(GameState.GameOver);
 
         private void Set(GameState state)
         {
@@ -42,7 +42,6 @@ namespace Game.Infrastructure
                     Time.timeScale = 0f;
                     break;
                 case GameState.Playing:
-                case GameState.Idle:
                 case GameState.GameOver:
                     Time.timeScale = 1f;
                     break;

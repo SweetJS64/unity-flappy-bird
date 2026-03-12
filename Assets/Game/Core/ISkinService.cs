@@ -7,7 +7,7 @@ namespace Game.Core
         IReadOnlyReactiveProperty<string> SelectedId { get; }
 
         bool IsOwned(string id);
-        bool TryBuy(string id, int price, IBalanceService balance);
+        bool TryBuy(string id, int price);
         void Select(string id);
     }
 }

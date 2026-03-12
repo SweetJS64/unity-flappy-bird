@@ -10,8 +10,7 @@ namespace Game.Infrastructure
         [Inject] private IGameSession _session;
         public bool IsJumpPressed()
         {
-            if (_session.State.Value != GameState.Playing &&
-                _session.State.Value != GameState.Idle)
+            if (_session.State.Value != GameState.Playing)
                 return false;
 
             if (Input.touchCount == 0)

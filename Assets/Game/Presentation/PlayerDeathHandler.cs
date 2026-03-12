@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 using Game.Common;
@@ -10,30 +9,31 @@ namespace Game.Presentation
     {
         [Inject] private SignalBus _signalBus;
 
-        [SerializeField] private LayerMask ObstacleMask;
-        [SerializeField] private LayerMask DeathZoneMask;
-
         private bool _isDead;
         private Collider2D _col;
+        private int _obstacleLayer;
+        private int _deathZoneLayer;
 
         private void Awake()
         {
             _col = GetComponent<Collider2D>();
+            _obstacleLayer  = LayerMask.NameToLayer(Layers.Obstacle);
+            _deathZoneLayer = LayerMask.NameToLayer(Layers.DeathZone);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (_isDead) return;
 
-            if (other.collider.gameObject.layer == LayerMask.NameToLayer(Layers.Obstacle))
+            if (other.collider.gameObject.layer == _obstacleLayer)
                 Die();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (_isDead) return;
-            
-            if (other.gameObject.layer == LayerMask.NameToLayer(Layers.DeathZone))
+
+            if (other.gameObject.layer == _deathZoneLayer)
                 Die();
         }
         private void Die()
