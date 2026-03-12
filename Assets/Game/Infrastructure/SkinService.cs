@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Core;
+using Game.Skins;
 using UniRx;
 using UnityEngine;
 
@@ -18,10 +19,10 @@ namespace Game.Infrastructure
         private readonly IBalanceService _balance;
         private readonly string _defaultSkinId;
 
-        public SkinService(IBalanceService balance, string defaultSkinId = "B1_Red")
+        public SkinService(IBalanceService balance, SkinCatalog catalog)
         {
             _balance = balance;
-            _defaultSkinId = defaultSkinId;
+            _defaultSkinId = catalog.GetDefault()?.Id ?? "";
             
             var csv = PlayerPrefs.GetString(OwnedKey, "");
             _owned = new HashSet<string>();

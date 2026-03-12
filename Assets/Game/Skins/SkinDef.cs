@@ -11,6 +11,7 @@ namespace Game.Skins
 
         [Header("Economy")]
         public int Price;
+        public bool IsDefault;
 
         [Header("Visuals")]
         public RuntimeAnimatorController AnimatorController;

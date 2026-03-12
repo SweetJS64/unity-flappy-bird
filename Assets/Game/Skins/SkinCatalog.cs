@@ -8,6 +8,12 @@ namespace Game.Skins
     {
         public SkinDef[] Items;
 
+        public SkinDef GetDefault()
+        {
+            if (Items == null) return null;
+            return Items.FirstOrDefault(i => i != null && i.IsDefault) ?? Items.FirstOrDefault(i => i != null);
+        }
+
         public SkinDef GetById(string id)
         {
             if (string.IsNullOrEmpty(id) || Items == null) return null;

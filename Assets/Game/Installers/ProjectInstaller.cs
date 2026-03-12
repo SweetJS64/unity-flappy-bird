@@ -15,8 +15,7 @@ namespace Game.Installers
             Container.Bind<IBalanceService>().To<BalanceService>().AsSingle();
             Container.Bind<ISkinService>()
                 .To<SkinService>()
-                .AsSingle()
-                .WithArguments("B1_Red");
+                .AsSingle();
             Container.Bind<SkinCatalog>()
                 .FromInstance(SkinCatalog)
                 .AsSingle();
